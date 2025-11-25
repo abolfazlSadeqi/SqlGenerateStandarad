@@ -1,0 +1,164 @@
+﻿@using Core
+@model IndexManageViewModel
+
+@{
+    ViewData["Title"] = "Manage Index";
+}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h4 class="card-title mb-4">@ViewData["Title"]</h4>
+
+        <form asp-action="CreateIndex" method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="DatabaseName" class="form-label"></label>
+                    <input asp-for="DatabaseName" class="form-control" />
+                    <span asp-validation-for="DatabaseName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="TableName" class="form-label"></label>
+                    <input asp-for="TableName" class="form-control" />
+                    <span asp-validation-for="TableName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="IndexName" class="form-label"></label>
+                    <input asp-for="IndexName" class="form-control" placeholder="Index Name" />
+                    <span asp-validation-for="IndexName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="IndexType" class="form-label"></label>
+                    <select asp-for="IndexType" class="form-select">
+                        <option value="Clustered">Clustered</option>
+                        <option value="NonClustered">NonClustered</option>
+                        <option value="Unique">Unique</option>
+                        <option value="FullText">Full Text</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 form-check mt-2">
+                    <input asp-for="IsUnique" class="form-check-input" type="checkbox" />
+                    <label asp-for="IsUnique" class="form-check-label"></label>
+                </div>
+
+                <!-- INDEX COLUMNS -->
+                <div class="col-12 mt-3">
+                    <label class="form-label fw-bold">Index Columns</label>
+                    <div id="columns">
+                        @for (int i = 0; i < Model.Columns.Count; i++)
+                        {
+                            <div class="row g-2 mb-2 column-row">
+                                <div class="col-md-6">
+                                    <input name="Columns[@i].ColumnName" value="@Model.Columns[i].ColumnName" class="form-control" placeholder="Column Name" />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <select name="Columns[@i].SortOrder" class="form-select">
+
+                                        @if (Model.Columns[i].SortOrder == SortOrder.Ascending)
+                                        {
+                                            <option value="Ascending" selected>Ascending</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="Ascending">Ascending</option>
+                                        }
+
+
+                                        @if (Model.Columns[i].SortOrder == SortOrder.Descending)
+                                        {
+                                            <option value="Ascending" selected>Descending</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="Ascending">Descending</option>
+                                        }
+
+
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-danger w-100 remove-column">Remove</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <button type="button" class="btn btn-outline-primary mt-2" id="addColumnBtn">Add Column</button>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <label class="form-label fw-bold">Include Columns (Covering Index)</label>
+                    <input name="IncludeColumns" value="@Model.IncludeColumns" class="form-control" placeholder="col1, col2, col3" />
+                </div>
+
+                <div class="col-12 mt-3">
+                    <label asp-for="FilterExpression" class="form-label"></label>
+                    <input asp-for="FilterExpression" class="form-control" placeholder="Optional filter expression" />
+                </div>
+
+                <div class="col-12 mt-3">
+                    <label asp-for="FileGroup" class="form-label"></label>
+                    <input asp-for="FileGroup" class="form-control" placeholder="Optional filegroup" />
+                </div>
+
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary w-100">Generate Script</button>
+                </div>
+            </div>
+        </form>
+
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="CreateIndex.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+                let columnIndex = @Model.Columns?.Count ?? 0;
+
+                document.getElementById("addColumnBtn").addEventListener("click", function() {
+                    let html = `
+                    <div class="row g-2 mb-2 column-row">
+                        <div class="col-md-6">
+                            <input name="Columns[${columnIndex}].ColumnName" class="form-control" placeholder="Column Name" />
+                        </div>
+                        <div class="col-md-4">
+                            <select name="Columns[${columnIndex}].SortOrder" class="form-select">
+                                <option value="Ascending">Ascending</option>
+                                <option value="Descending">Descending</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger w-100 remove-column">Remove</button>
+                        </div>
+                    </div>`;
+                    document.getElementById("columns").insertAdjacentHTML("beforeend", html);
+                    columnIndex++;
+                });
+
+
+        document.addEventListener("click", function(e) {
+            if(e.target.classList.contains("remove-column")){
+                e.target.closest(".column-row").remove();
+            }
+        });
+
+
+    </script>
+}

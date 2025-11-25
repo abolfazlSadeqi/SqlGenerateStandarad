@@ -1,0 +1,32 @@
+﻿@using Core
+@model LoginDeleteViewModel
+
+<div class="card">
+    <div class="card-body">
+
+        <h4>Delete Login</h4>
+
+        <form method="post">
+
+            <label>Login Name</label>
+            <input asp-for="LoginName" class="form-control" />
+
+            <button class="btn btn-danger mt-3">Delete</button>
+
+        </form>
+
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="DeleteLogin.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+
+
+    </div>
+</div>

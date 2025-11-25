@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<!-- MENU TITLES -->
+	<data name="Main Menu" xml:space="preserve">
+    <value>Main Menu</value>
+  </data>
+	<data name="AlterColumn" xml:space="preserve">
+    <value>AlterColumn</value>
+  </data>
+	<data name="DropColumn" xml:space="preserve">
+    <value>DropColumn</value>
+  </data>
+
+	<data name="RenameColumn" xml:space="preserve">
+    <value>RenameColumn</value>
+  </data>
+	<data name="ManageFileGroup" xml:space="preserve">
+    <value>ManageFileGroup</value>
+  </data>
+	<data name="TableStorageUpdate" xml:space="preserve">
+    <value>TableStorageUpdate</value>
+  </data>
+
+	<data name="ManageView" xml:space="preserve">
+       <value>ManageView(drop/create) </value>
+  </data>
+
+
+	<data name="CreateSchema" xml:space="preserve">
+       <value>CreateSchema </value>
+  </data>
+	<data name="DropSchema" xml:space="preserve">
+       <value>DropSchema </value>
+  </data>
+	<data name="RenameSchema" xml:space="preserve">
+       <value>RenameSchema </value>
+  </data>
+
+
+
+
+	<data name="CreateFunction" xml:space="preserve">
+       <value>CreateFunction </value>
+  </data>
+	<data name="DropFunction" xml:space="preserve">
+       <value>DropFunction </value>
+  </data>
+
+
+	<data name="CreateSequence" xml:space="preserve">
+       <value>CreateSequence  </value>
+  </data>
+	<data name="DropSequence" xml:space="preserve">
+       <value>DropSequence  </value>
+  </data>
+	
+
+	<data name="DropView" xml:space="preserve">
+       <value>DropView</value>
+  </data>
+
+	<data name="DropProcedure" xml:space="preserve">
+       <value>DropProcedure </value>
+  </data>
+	
+	
+	<data name="ManageProcedure" xml:space="preserve">
+    <value>ManageProcedure(drop/create) </value>
+  </data>
+
+	<data name="ManageFunction" xml:space="preserve">
+   <value>ManageFunction(drop/create) </value>
+  </data>
+	<data name="ManageSequence" xml:space="preserve">
+   <value>ManageSequence(drop/create) </value>
+  </data>
+
+	<data name="ManageIndex" xml:space="preserve">
+    <value>ManageIndex(drop/create)</value>
+  </data>
+	
+	<data name="ManageSchema" xml:space="preserve">
+    <value>ManageSchema(drop/create/Rename) </value>
+  </data>
+
+	<data name="Build Scripts" xml:space="preserve">
+    <value>Build Scripts</value>
+  </data>
+	<data name="Extract Information" xml:space="preserve">
+    <value>Extract Information</value>
+  </data>
+
+	<!-- BUILD SECTION -->
+	<data name="Create Table" xml:space="preserve">
+    <value>Create Table</value>
+  </data>
+	<data name="Drop Table" xml:space="preserve">
+    <value>Drop Table</value>
+  </data>
+	<data name="Rename Table" xml:space="preserve">
+    <value>Rename Table</value>
+  </data>
+	<data name="Column Management" xml:space="preserve">
+    <value>Column Management</value>
+  </data>
+	<data name="Indexes" xml:space="preserve">
+    <value>Indexes</value>
+  </data>
+	<data name="Descriptions" xml:space="preserve">
+    <value>Descriptions</value>
+  </data>
+	<data name="Primary / Foreign Keys" xml:space="preserve">
+    <value>Primary / Foreign Keys</value>
+  </data>
+	<data name="In-Memory Table" xml:space="preserve">
+    <value>In-Memory Table</value>
+  </data>
+	<data name="Filegroups  Partitions" xml:space="preserve">
+    <value>Filegroups  Partitions</value>
+  </data>
+	<data name="Create Column" xml:space="preserve">
+    <value>Create Column</value>
+  </data>
+	
+	<data name="Create Database" xml:space="preserve">
+    <value>Create Database</value>
+  </data>
+	<data name="Create View" xml:space="preserve">
+    <value>Create View</value>
+  </data>
+	<data name="Stored Procedure" xml:space="preserve">
+    <value>Stored Procedure</value>
+  </data>
+	<data name="Create Schema" xml:space="preserve">
+    <value>Create Schema</value>
+  </data>
+	<data name="Change Schema" xml:space="preserve">
+    <value>Change Schema</value>
+  </data>
+	<data name="Default Values" xml:space="preserve">
+    <value>Default Values</value>
+  </data>
+	<data name="Login User" xml:space="preserve">
+    <value>Login  User</value>
+  </data>
+	<data name="Change Login Password" xml:space="preserve">
+    <value>Change Login Password</value>
+  </data>
+	<data name="TempDB Standard" xml:space="preserve">
+    <value>TempDB Standard</value>
+  </data>
+
+	<!-- EXTRACT SECTION -->
+	<data name="Tables" xml:space="preserve">
+    <value>Tables</value>
+  </data>
+	<data name="Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+	<data name="Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+	<data name="File Groups" xml:space="preserve">
+    <value>File Groups</value>
+  </data>
+	<data name="Schemas" xml:space="preserve">
+    <value>Schemas</value>
+  </data>
+	<data name="Foreign Keys" xml:space="preserve">
+    <value>Foreign Keys</value>
+  </data>
+	<data name="Primary Keys" xml:space="preserve">
+    <value>Primary Keys</value>
+  </data>
+	<data name="Procedures" xml:space="preserve">
+    <value>Procedures</value>
+  </data>
+	<data name="Database Info" xml:space="preserve">
+    <value>Database Info</value>
+  </data>
+
+	<!-- INFO TEXT -->
+	<data name="This tool automatically generates SQL scripts following best practices and versioning standards based on user input." xml:space="preserve">
+    <value>This tool automatically generates SQL scripts following best practices and versioning standards based on user input.</value>
+  </data>
+
+
+
+	<data name="LoginUser" xml:space="preserve">
+    <value>Login User</value>
+</data>
+
+	<data name="DeleteLogin" xml:space="preserve">
+    <value>Delete Login</value>
+</data>
+
+	<data name="ChangeLoginPassword" xml:space="preserve">
+    <value>Change Login Password</value>
+</data>
+
+	<data name="CreateUser" xml:space="preserve">
+    <value>Create User</value>
+</data>
+
+	<data name="DeleteUser" xml:space="preserve">
+    <value>Delete User</value>
+</data>
+
+	<data name="AddUserToRole" xml:space="preserve">
+    <value>Add User to Role</value>
+</data>
+
+	<data name="GrantDatabasePermission" xml:space="preserve">
+    <value>Grant Database Permission</value>
+</data>
+
+	<data name="GrantObjectPermission" xml:space="preserve">
+    <value>Grant Object Permission</value>
+</data>
+
+	<data name="AddLoginToServerRole" xml:space="preserve">
+    <value>Add Login to Server Role</value>
+</data>
+
+	<data name="RevokeObjectPermission" xml:space="preserve">
+    <value>Revoke Object Permission</value>
+</data>
+
+	
+	
+	
+	<data name="ExtractData" xml:space="preserve">
+    <value>Extract Data</value>
+</data>
+
+	<data name="DatabaseTempDbManagement" xml:space="preserve">
+    <value>Database / TempDB Management</value>
+</data>
+
+	<data name="SecurityManagement" xml:space="preserve">
+    <value>Security Management</value>
+</data>
+
+	<data name="SequenceIndexManagement" xml:space="preserve">
+    <value>Sequence / Index Management</value>
+</data>
+
+	<data name="SchemaFunctionManagement" xml:space="preserve">
+    <value>Schema / Function Management</value>
+</data>
+
+	<data name="ViewProcedureManagement" xml:space="preserve">
+    <value>View / Procedure Management</value>
+</data>
+
+	<data name="PartitionFileGroupManagement" xml:space="preserve">
+    <value>Partition / FileGroup Management</value>
+</data>
+
+	<data name="ColumnManagement" xml:space="preserve">
+    <value>Column Management</value>
+</data>
+
+	<data name="TableManagement" xml:space="preserve">
+    <value>Table Management</value>
+</data>
+
+
+</root>

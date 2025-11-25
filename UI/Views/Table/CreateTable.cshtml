@@ -1,0 +1,163 @@
+﻿@using Core
+@model TableCreateViewModel
+@{
+    ViewData["Title"] = "Create Table";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ViewData["Title"]</h4>
+
+        <form asp-action="CreateTable" method="post">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label asp-for="Schema"></label>
+                    <input asp-for="Schema" class="form-control" />
+                    <span asp-validation-for="Schema" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="TableName"></label>
+                    <input asp-for="TableName" class="form-control" />
+                    <span asp-validation-for="TableName" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="FileGroup"></label>
+                    <input asp-for="FileGroup" class="form-control" placeholder="Optional" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="PartitionScheme"></label>
+                    <input asp-for="PartitionScheme" class="form-control" placeholder="Optional" />
+                </div>
+            </div>
+
+            <hr />
+            <h5>Columns</h5>
+            <table class="table table-sm" id="columnsTable">
+                <thead>
+                    <tr>
+                        <th>Column Name</th>
+                        <th>Data Type</th>
+                        <th>Nullable</th>
+                        <th>Default</th>
+                        <th>Primary Key</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Columns.Count; i++)
+                    {
+                        <tr>
+                            <td><input asp-for="@Model.Columns[i].ColumnName" class="form-control" /></td>
+                            <td><input asp-for="@Model.Columns[i].DataType" class="form-control" /></td>
+                            <td>
+                                <!-- Select for Nullable -->
+                                <select name="Columns[@i].IsNullable" class="form-control">
+                                    @if (Model.Columns[i].IsNullable)
+                                    {
+                                        <option value="true" selected>True</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="true">True</option>
+                                    }
+
+                                    @if (Model.Columns[i].IsNullable == false)
+                                    {
+                                        <option value="false" selected>false</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="false">false</option>
+                                    }
+
+                                </select>
+                            </td>
+                            <td><input asp-for="@Model.Columns[i].DefaultValue" class="form-control" /></td>
+
+                            <td>
+                                <!-- Select for Primary Key -->
+                                <select name="Columns[@i].IsPrimaryKey" class="form-control">
+                                    @if (Model.Columns[i].IsPrimaryKey)
+                                    {
+                                        <option value="true" selected>True</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="true">True</option>
+                                    }
+
+                                    @if (Model.Columns[i].IsPrimaryKey == false)
+                                    {
+                                        <option value="false" selected>false</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="false">false</option>
+                                    }
+                                </select>
+                            </td>
+
+                            <td><button type="button" class="btn btn-danger btn-sm" onclick="removeColumn(this)">Remove</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-secondary btn-sm" id="addColumnButton">Add Column</button>
+
+            <hr />
+            <button type="submit" class="btn btn-primary">Generate Script</button>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="create-table.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Add new column row dynamically
+        document.getElementById("addColumnButton").onclick = function () {
+            var table = document.getElementById("columnsTable").getElementsByTagName("tbody")[0];
+            var row = table.insertRow();
+            var rowIndex = table.rows.length - 1;  // Get the index for the new row
+
+            row.innerHTML = `
+                <td><input class="form-control" name="Columns[${rowIndex}].ColumnName" /></td>
+                <td><input class="form-control" name="Columns[${rowIndex}].DataType" /></td>
+                <td>
+                    <select class="form-control" name="Columns[${rowIndex}].IsNullable">
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </td>
+                <td><input class="form-control" name="Columns[${rowIndex}].DefaultValue" /></td>
+
+                <td>
+                    <select class="form-control" name="Columns[${rowIndex}].IsPrimaryKey">
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </td>
+
+                <td><button type="button" class="btn btn-danger btn-sm" onclick="removeColumn(this)">Remove</button></td>
+            `;
+        };
+
+        // Remove column row dynamically
+        function removeColumn(button) {
+            var row = button.closest('tr');
+            row.parentNode.removeChild(row);
+        }
+
+    </script>
+}

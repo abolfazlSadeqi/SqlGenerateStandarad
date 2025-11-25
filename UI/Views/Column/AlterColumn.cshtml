@@ -1,0 +1,66 @@
+﻿@using Core
+@model ColumnAlterViewModel
+@{
+    ViewData["Title"] = "Change Column";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ViewData["Title"]</h4>
+
+        <form asp-action="AlterColumn" method="post">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label asp-for="Schema" class="form-label"></label>
+                    <input asp-for="Schema" class="form-control" />
+                    <span asp-validation-for="Schema" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="TableName" class="form-label"></label>
+                    <input asp-for="TableName" class="form-control" />
+                    <span asp-validation-for="TableName" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="ColumnName" class="form-label"></label>
+                    <input asp-for="ColumnName" class="form-control" />
+                    <span asp-validation-for="ColumnName" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="DataType" class="form-label"></label>
+                    <input asp-for="DataType" class="form-control" placeholder="e.g. int, nvarchar(100), datetime2" />
+                    <span asp-validation-for="DataType" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">@Html.DisplayNameFor(m => m.IsNullable)</label>
+                    <div class="form-check">
+                        <input asp-for="IsNullable" class="form-check-input" />
+                        <label class="form-check-label" asp-for="IsNullable"></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="DefaultValue" class="form-label"></label>
+                    <input asp-for="DefaultValue" class="form-control" placeholder="e.g. 0 or 'N/A' or GETDATE()" />
+                    <small class="form-text text-muted"> (SQL expression).</small>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Generate Script</button>
+                </div>
+            </div>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="alter-column.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

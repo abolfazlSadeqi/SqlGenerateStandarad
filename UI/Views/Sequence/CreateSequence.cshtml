@@ -1,0 +1,73 @@
+﻿@using Core
+@model AdvancedSequenceManageViewModel
+@{
+    ViewData["Title"] = "Manage Sequence";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ViewData["Title"]</h4>
+
+        <form asp-action="CreateSequence" method="post">
+            <div class="mb-3">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="SequenceName"></label>
+                <input asp-for="SequenceName" class="form-control" />
+                <span asp-validation-for="SequenceName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="StartValue"></label>
+                <input asp-for="StartValue" class="form-control" />
+                <span asp-validation-for="StartValue" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Increment"></label>
+                <input asp-for="Increment" class="form-control" />
+                <span asp-validation-for="Increment" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MinValue"></label>
+                <input asp-for="MinValue" class="form-control" />
+                <span asp-validation-for="MinValue" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MaxValue"></label>
+                <input asp-for="MaxValue" class="form-control" />
+                <span asp-validation-for="MaxValue" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="IsCycle" class="form-check-input" />
+                <label asp-for="IsCycle" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Create Sequence</button>
+        </form>
+
+        
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="CreateSequence.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

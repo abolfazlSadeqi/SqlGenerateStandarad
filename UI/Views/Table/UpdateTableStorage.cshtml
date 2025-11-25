@@ -1,0 +1,80 @@
+﻿@using Core
+@model TableStorageUpdateViewModel
+@{
+    ViewData["Title"] = "Update Table Storage";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ViewData["Title"]</h4>
+
+        <form asp-action="UpdateTableStorage" method="post">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label asp-for="DatabaseName"></label>
+                    <input asp-for="DatabaseName" class="form-control" />
+                    <span asp-validation-for="DatabaseName" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Schema"></label>
+                    <input asp-for="Schema" class="form-control" />
+                    <span asp-validation-for="Schema" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="TableName"></label>
+                    <input asp-for="TableName" class="form-control" />
+                    <span asp-validation-for="TableName" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="NewFileGroup"></label>
+                    <input asp-for="NewFileGroup" class="form-control" placeholder="Optional" />
+                </div>
+            </div>
+
+            <hr />
+            <h5>Partition (Optional)</h5>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label asp-for="PartitionFunctionName"></label>
+                    <input asp-for="PartitionFunctionName" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="PartitionSchemeName"></label>
+                    <input asp-for="PartitionSchemeName" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="PartitionColumn"></label>
+                    <input asp-for="PartitionColumn" class="form-control" placeholder="Column for partition" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="RangeValues"></label>
+                    <input asp-for="RangeValues" class="form-control" placeholder="100,200,300" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="RangeBoundary"></label>
+                    <select asp-for="RangeBoundary" class="form-select">
+                        <option value="LEFT">LEFT</option>
+                        <option value="RIGHT">RIGHT</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Generate Script</button>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="table_storage.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,45 @@
+﻿@using Core
+@model UserPermissionViewModel
+
+<div class="card">
+    <div class="card-body">
+
+        <h4>Grant Database Permission</h4>
+
+        <form method="post">
+
+            <label>Database Name</label>
+            <input asp-for="DatabaseName" class="form-control" />
+
+            <label>User Name</label>
+            <input asp-for="UserName" class="form-control" />
+
+            <label>Permission</label>
+            <select asp-for="Permission" class="form-control">
+                <option value="SELECT">SELECT</option>
+                <option value="INSERT">INSERT</option>
+                <option value="UPDATE">UPDATE</option>
+                <option value="DELETE">DELETE</option>
+                <option value="EXECUTE">EXECUTE</option>
+            </select>
+
+            <button class="btn btn-primary mt-3">Grant Permission</button>
+
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="GrantDatabasePermission.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+
+
+
+
+    </div>
+</div>

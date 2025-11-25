@@ -1,0 +1,49 @@
+﻿@using Core
+@model DropProcedureViewModel
+@{
+    ViewData["Title"] = "Manage Stored Procedure";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ViewData["Title"]</h4>
+
+        <form asp-action="DropProcedure" method="post">
+            <div class="mb-3">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Schema"></label>
+                <input asp-for="Schema" class="form-control" />
+                <span asp-validation-for="Schema" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ProcedureName"></label>
+                <input asp-for="ProcedureName" class="form-control" />
+                <span asp-validation-for="ProcedureName" class="text-danger"></span>
+            </div>
+
+         
+
+            <button type="submit" class="btn btn-success">DropProcedure</button>
+        </form>
+
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="managment-proc.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

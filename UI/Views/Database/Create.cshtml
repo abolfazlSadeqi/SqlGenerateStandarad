@@ -1,0 +1,86 @@
+﻿@using Core
+@model DatabaseCreateViewModel
+<div class="card">
+    <div class="card-body">
+
+        <h4>Create Database</h4>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="DatabaseName">Database Name</label>
+                <input type="text" class="form-control" id="DatabaseName" name="DatabaseName" required />
+            </div>
+
+            <div class="form-group">
+                <label for="RecoveryModel">Recovery Model</label>
+                <select class="form-control" id="RecoveryModel" name="RecoveryModel">
+                    <option value="FULL">Full</option>
+                    <option value="SIMPLE">Simple</option>
+                    <option value="BULK_LOGGED">Bulk-Logged</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="FileGroupName">Filegroup Name</label>
+                <input type="text" class="form-control" id="FileGroupName" name="FileGroupName" required />
+            </div>
+
+            <div class="form-group">
+                <label for="DataFilePath">Data File Path</label>
+                <input type="text" class="form-control" id="DataFilePath" name="DataFilePath" required />
+            </div>
+
+            <div class="form-group">
+                <label for="LogFilePath">Log File Path</label>
+                <input type="text" class="form-control" id="LogFilePath" name="LogFilePath" required />
+            </div>
+
+            <div class="form-group">
+                <label for="DataFileSize">Data File Size</label>
+                <input type="text" class="form-control" id="DataFileSize" name="DataFileSize" required />
+            </div>
+
+            <div class="form-group">
+                <label for="LogFileSize">Log File Size</label>
+                <input type="text" class="form-control" id="LogFileSize" name="LogFileSize" required />
+            </div>
+
+            <div class="form-group">
+                <label for="MaxDataFileSize">Max Data File Size</label>
+                <input type="text" class="form-control" id="MaxDataFileSize" name="MaxDataFileSize" required />
+            </div>
+
+            <div class="form-group">
+                <label for="MaxLogFileSize">Max Log File Size</label>
+                <input type="text" class="form-control" id="MaxLogFileSize" name="MaxLogFileSize" required />
+            </div>
+
+            <div class="form-group">
+                <label for="AutoGrowthIncrement">Auto Growth Increment</label>
+                <input type="text" class="form-control" id="AutoGrowthIncrement" name="AutoGrowthIncrement" required />
+            </div>
+
+            <div class="form-group">
+                <label for="IsDeleteIfExists">Delete Database if Exists</label>
+                <select class="form-control" id="IsDeleteIfExists" name="IsDeleteIfExists">
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Create Database</button>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="create-Database.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+
+    </div>
+</div>

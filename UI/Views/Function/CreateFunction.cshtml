@@ -1,0 +1,61 @@
+﻿@using Core
+@model CreateFunctionViewModel
+@{
+    ViewData["Title"] = "Create Function";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4>@ViewData["Title"]</h4>
+
+        <form asp-action="CreateFunction" method="post">
+            <div class="mb-3">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Schema"></label>
+                <input asp-for="Schema" class="form-control" />
+                <span asp-validation-for="Schema" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FunctionName"></label>
+                <input asp-for="FunctionName" class="form-control" />
+                <span asp-validation-for="FunctionName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FunctionType"></label>
+                <select asp-for="FunctionType" class="form-select">
+                    <option value="Scalar">Scalar Function</option>
+                    <option value="InlineTable">Inline Table-Valued</option>
+                    <option value="MultiStatementTable">Multi-Statement Table</option>
+                </select>
+                <span asp-validation-for="FunctionType" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FunctionDefinition"></label>
+                <textarea asp-for="FunctionDefinition" class="form-control" rows="6"></textarea>
+                <span asp-validation-for="FunctionDefinition" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-success" type="submit">Generate Script</button>
+        </form>
+
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="managment-function.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<data name="AlterColumn" xml:space="preserve">
+    <value>تغییر ستون</value>
+  </data>
+
+	<data name="DropColumn" xml:space="preserve">
+    <value>حذف ستون</value>
+  </data>
+
+	<data name="RenameColumn" xml:space="preserve">
+    <value>تغییر نام ستون</value>
+  </data>
+
+	<data name="ManageFileGroup" xml:space="preserve">
+    <value>مدیریت فایل گروپ</value>
+  </data>
+	<data name="ManageProcedure" xml:space="preserve">
+    <value>مدیریت پروسیچر)ایجاد و جذف(</value>
+  </data>
+
+	
+	<data name="TableStorageUpdate" xml:space="preserve">
+    <value>پارتیشن و فایل گروپ جدول</value>
+  </data>
+
+	<data name="ManageView" xml:space="preserve">
+    <value>(ایجاد و حذف )مدیریت ویو</value>
+  </data>
+	<data name="ManageFunction" xml:space="preserve">
+    <value>(ایجاد و حذف )مدیریت فانکشن</value>
+  </data>
+
+
+
+	<data name="DropView" xml:space="preserve">
+       <value>حذف ویو</value>
+  </data>
+
+	<data name="DropProcedure" xml:space="preserve">
+       <value>حذف پروسیچر</value>
+  </data>
+
+	<data name="ManageSequence" xml:space="preserve">
+    <value>(drop/create/Rename)مدیریت Sequence</value>
+  </data>
+	<data name="ManageSchema" xml:space="preserve">
+    <value>(drop/create/Rename)مدیریت اسکیما</value>
+  </data>
+	<data name="ManageIndex" xml:space="preserve">
+    <value>(drop/create)مدیریت ایندکس</value>
+  </data>
+
+
+
+
+	<data name="CreateSchema" xml:space="preserve">
+       <value>ایجاد اسکیما </value>
+  </data>
+	<data name="DropSchema" xml:space="preserve">
+       <value>حذف اسکیما </value>
+  </data>
+	<data name="RenameSchema" xml:space="preserve">
+       <value>تغییر نام اسکیما </value>
+  </data>
+
+
+
+	<data name="CreateFunction" xml:space="preserve">
+       <value>ایجاد تابع </value>
+  </data>
+	<data name="DropFunction" xml:space="preserve">
+       <value>حذف تابع </value>
+  </data>
+
+
+	<data name="CreateSequence" xml:space="preserve">
+       <value>ایجاد Sequence </value>
+  </data>
+	<data name="DropSequence" xml:space="preserve">
+       <value>حذف Sequence </value>
+  </data>
+	<!-- MENU TITLES -->
+	<data name="Main Menu" xml:space="preserve">
+    <value>منوی اصلی</value>
+  </data>
+	<data name="Build Scripts" xml:space="preserve">
+    <value>ساخت اسکریپت‌ها</value>
+  </data>
+	<data name="Extract Information" xml:space="preserve">
+    <value>دریافت اطلاعات</value>
+  </data>
+
+	<!-- BUILD SECTION -->
+	<data name="Create Table" xml:space="preserve">
+    <value>ایجاد جدول</value>
+  </data>
+	<data name="Drop Table" xml:space="preserve">
+    <value>حذف جدول</value>
+  </data>
+	<data name="Rename Table" xml:space="preserve">
+    <value>تغییر نام جدول</value>
+  </data>
+	<data name="Column Management" xml:space="preserve">
+    <value>مدیریت ستون‌ها</value>
+  </data>
+	<data name="Indexes" xml:space="preserve">
+    <value>ایندکس‌ها</value>
+  </data>
+	<data name="Descriptions" xml:space="preserve">
+    <value>توضیحات آبجکت‌ها</value>
+  </data>
+	<data name="Primary / Foreign Keys" xml:space="preserve">
+    <value>کلیدهای اصلی و خارجی</value>
+  </data>
+	<data name="In-Memory Table" xml:space="preserve">
+    <value>جدول In-Memory</value>
+  </data>
+	<data name="Filegroups  Partitions" xml:space="preserve">
+    <value>فایل‌گروپ و پارتیشن‌بندی</value>
+  </data>
+	<data name="Create Database" xml:space="preserve">
+    <value>ساخت دیتابیس</value>
+  </data>
+	<data name="Create View" xml:space="preserve">
+    <value>ساخت ویو</value>
+  </data>
+	<data name="Stored Procedure" xml:space="preserve">
+    <value>ساخت پروسیجر</value>
+  </data>
+	<data name="Create Column" xml:space="preserve">
+    <value>ساخت ستون</value>
+  </data>
+	<data name="Create Schema" xml:space="preserve">
+    <value>ساخت اسکیما</value>
+  </data>
+	<data name="Change Schema" xml:space="preserve">
+    <value>تغییر اسکیما آبجکت‌ها</value>
+  </data>
+	<data name="Default Values" xml:space="preserve">
+    <value>تغییر دیتا پیش‌فرض</value>
+  </data>
+	<data name="Login User" xml:space="preserve">
+    <value>ساخت کاربر و لاگین</value>
+  </data>
+	<data name="Change Login Password" xml:space="preserve">
+    <value>تغییر رمز لاگین</value>
+  </data>
+	<data name="TempDB Standard" xml:space="preserve">
+    <value>استانداردسازی TempDB</value>
+  </data>
+
+	<!-- EXTRACT SECTION -->
+	<data name="Tables" xml:space="preserve">
+    <value>جداول</value>
+  </data>
+	<data name="Views" xml:space="preserve">
+    <value>ویوها</value>
+  </data>
+	<data name="Columns" xml:space="preserve">
+    <value>ستون‌ها</value>
+  </data>
+	<data name="File Groups" xml:space="preserve">
+    <value>فایل‌گروپ‌ها</value>
+  </data>
+	<data name="Schemas" xml:space="preserve">
+    <value>اسکیماها</value>
+  </data>
+	<data name="Foreign Keys" xml:space="preserve">
+    <value>کلیدهای خارجی</value>
+  </data>
+	<data name="Primary Keys" xml:space="preserve">
+    <value>کلیدهای اصلی</value>
+  </data>
+	<data name="Procedures" xml:space="preserve">
+    <value>پروسیجرها</value>
+  </data>
+	<data name="Database Info" xml:space="preserve">
+    <value>اطلاعات دیتابیس</value>
+  </data>
+
+	<!-- INFO TEXT -->
+	<data name="This tool automatically generates SQL scripts following best practices and versioning standards based on user input." xml:space="preserve">
+    <value>این ابزار به‌صورت خودکار و براساس استانداردهای نسخه‌گذاری، اسکریپت‌های SQL را بر اساس ورودی کاربر تولید می‌کند.</value>
+  </data>
+
+
+	<data name="LoginUser" xml:space="preserve">
+    <value>ورود به سیستم</value>
+</data>
+
+	<data name="DeleteLogin" xml:space="preserve">
+    <value>حذف ورود</value>
+</data>
+
+	<data name="ChangeLoginPassword" xml:space="preserve">
+    <value>تغییر رمز عبور</value>
+</data>
+
+	<data name="CreateUser" xml:space="preserve">
+    <value>ایجاد کاربر</value>
+</data>
+
+	<data name="DeleteUser" xml:space="preserve">
+    <value>حذف کاربر</value>
+</data>
+
+	<data name="AddUserToRole" xml:space="preserve">
+    <value>اضافه کردن کاربر به نقش</value>
+</data>
+
+	<data name="GrantDatabasePermission" xml:space="preserve">
+    <value>اعطای دسترسی به پایگاه داده</value>
+</data>
+
+	<data name="GrantObjectPermission" xml:space="preserve">
+    <value>اعطای دسترسی به ابجکت</value>
+</data>
+
+	<data name="AddLoginToServerRole" xml:space="preserve">
+    <value>اضافه کردن ورود به نقش سرور</value>
+</data>
+
+	<data name="RevokeObjectPermission" xml:space="preserve">
+    <value>لغو دسترسی به ابجکت</value>
+</data>
+	
+	
+	
+	
+	<data name="ExtractData" xml:space="preserve">
+    <value>استخراج داده‌ها</value>
+</data>
+
+	<data name="DatabaseTempDbManagement" xml:space="preserve">
+    <value>مدیریت دیتابیس و TempDB</value>
+</data>
+
+	<data name="SecurityManagement" xml:space="preserve">
+    <value>مدیریت امنیت</value>
+</data>
+
+	<data name="SequenceIndexManagement" xml:space="preserve">
+    <value>مدیریت Sequence و Index</value>
+</data>
+
+	<data name="SchemaFunctionManagement" xml:space="preserve">
+    <value>مدیریت Schema و Function</value>
+</data>
+
+	<data name="ViewProcedureManagement" xml:space="preserve">
+    <value>مدیریت View و Procedure</value>
+</data>
+
+	<data name="PartitionFileGroupManagement" xml:space="preserve">
+    <value>مدیریت Partition و FileGroup</value>
+</data>
+
+	<data name="ColumnManagement" xml:space="preserve">
+    <value>مدیریت ستون‌ها</value>
+</data>
+
+	<data name="TableManagement" xml:space="preserve">
+    <value>مدیریت جدول‌ها</value>
+</data>
+
+</root>

@@ -1,0 +1,38 @@
+﻿@using Core
+@model LoginCreateViewModel
+
+<div class="card">
+    <div class="card-body">
+
+        <h4>Create Login</h4>
+
+        <form method="post">
+
+            <label>Login Name</label>
+            <input asp-for="LoginName" class="form-control" />
+
+            <label>Password</label>
+            <input asp-for="Password" type="password" class="form-control" />
+
+            <label>
+                <input asp-for="IsSqlLogin" type="checkbox" /> SQL Login (otherwise Windows Login)
+            </label>
+
+            <button class="btn btn-primary mt-3">Generate</button>
+
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="CreateLogin.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+
+
+    </div>
+</div>

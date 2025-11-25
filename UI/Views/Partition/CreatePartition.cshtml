@@ -1,0 +1,79 @@
+﻿@using Core
+@model PartitionCreateViewModel
+@{
+    ViewData["Title"] = "Create Partition Function and Scheme";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ViewData["Title"]</h4>
+
+        <form asp-action="CreatePartition" method="post">
+            <div class="mb-3">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PartitionFunctionName"></label>
+                <input asp-for="PartitionFunctionName" class="form-control" />
+                <span asp-validation-for="PartitionFunctionName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RangeValues"></label>
+                <input asp-for="RangeValues" class="form-control" placeholder="100,200,300" />
+                <span asp-validation-for="RangeValues" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RangeBoundary"></label>
+                <select asp-for="RangeBoundary" class="form-select">
+                    <option value="LEFT">LEFT</option>
+                    <option value="RIGHT">RIGHT</option>
+                </select>
+                <span asp-validation-for="RangeBoundary" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PartitionSchemeName"></label>
+                <input asp-for="PartitionSchemeName" class="form-control" />
+                <span asp-validation-for="PartitionSchemeName" class="text-danger"></span>
+            </div>
+
+            <hr />
+            <h5>Filegroups</h5>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Filegroup Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.FileGroups.Count; i++)
+                    {
+                        <tr>
+                            <td><input asp-for="@Model.FileGroups[i].FileGroupName" class="form-control" /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <button type="submit" class="btn btn-primary">Generate Partition Script</button>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="CreatePartition.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

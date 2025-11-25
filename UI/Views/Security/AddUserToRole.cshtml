@@ -1,0 +1,38 @@
+﻿@using Core
+@model UserRoleAssignViewModel
+
+<div class="card">
+    <div class="card-body">
+
+        <h4>AddUserToRole</h4>
+
+        <form method="post">
+
+            <label>Database Name</label>
+            <input asp-for="DatabaseName" class="form-control" />
+
+            <label>User Name</label>
+            <input asp-for="UserName" class="form-control" />
+
+            <label>Role Name</label>
+            <input asp-for="RoleName" class="form-control" />
+
+
+            <button class="btn btn-danger mt-3">Generate Script</button>
+
+        </form>
+
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="AddUserToRole.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+
+    </div>
+</div>

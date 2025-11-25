@@ -1,0 +1,49 @@
+﻿@using Core
+@model DropViewViewModel
+@{
+    ViewData["Title"] = "Manage View";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ViewData["Title"]</h4>
+
+        <form asp-action="DropView" method="post">
+            <div class="mb-3">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Schema"></label>
+                <input asp-for="Schema" class="form-control" />
+                <span asp-validation-for="Schema" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ViewName"></label>
+                <input asp-for="ViewName" class="form-control" />
+                <span asp-validation-for="ViewName" class="text-danger"></span>
+            </div>
+
+          
+
+            <button type="submit" class="btn btn-success">Drop View</button>
+        </form>
+
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+        {
+            <hr />
+            <h5>Generated SQL</h5>
+            <div class="mb-2">
+                <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+                <a class="btn btn-sm btn-outline-success" href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)" download="managment-view.sql">Download</a>
+            </div>
+            <pre id="scriptArea" style="white-space:pre-wrap; background:#1e1e1e; color:#e6e6e6; padding:15px; border-radius:6px;">@Model.GeneratedScript</pre>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

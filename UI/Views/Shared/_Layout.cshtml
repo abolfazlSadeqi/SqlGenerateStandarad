@@ -1,0 +1,268 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    var lang = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isRtl = lang == "fa-IR";
+}
+
+<!DOCTYPE html>
+<html lang="@lang" dir="@(isRtl ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - SQL Script Generator</title>
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="SQL Script Generator for creating and managing database scripts with ease." />
+    <meta name="keywords" content="SQL, script generator, database, tables, columns" />
+    <meta name="author" content="Heeman Sadeghi" />
+
+    <!-- Open Graph Tags for Social Media (Optional) -->
+    <meta property="og:title" content="SQL Script Generator" />
+    <meta property="og:description" content="SQL Script Generator for creating and managing database scripts with ease" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter Card Tags (Optional) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SQL Script Generator" />
+    <meta name="twitter:description" content="SQL Script Generator for creating and managing database scripts with ease" />
+  
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">
+                <i class="bi bi-database-gear"></i>
+                SQL Script Generator
+            </span>
+
+            <!-- Language -->
+            <form asp-controller="Home" asp-action="SetLanguage" method="post" class="ms-auto">
+                <select name="culture" onchange="this.form.submit()" class="form-select form-select-sm">
+                    <option value="fa-IR" selected="@(isRtl ? "selected" : null)">فارسی</option>
+                    <option value="en-US" selected="@(isRtl ? null : "selected")">English</option>
+                </select>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="group-title">
+            <i class="bi bi-tools"></i>
+            @Localizer["Build Scripts"]
+        </div>
+        <ul class="nav nav-pills flex-column">
+            <!-- Table Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#tableManagement">@Localizer["TableManagement"]</a>
+                <div id="tableManagement" class="collapse">
+                    <a asp-controller="Table" asp-action="CreateTable" class="nav-link">@Localizer["Create Table"]</a>
+                    <a asp-controller="Table" asp-action="DropTable" class="nav-link">@Localizer["Drop Table"]</a>
+                    <a asp-controller="Table" asp-action="RenameTable" class="nav-link">@Localizer["Rename Table"]</a>
+                </div>
+            </li>
+
+            <!-- Column Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#columnManagement">@Localizer["ColumnManagement"]</a>
+                <div id="columnManagement" class="collapse">
+                    <a asp-controller="Column" asp-action="CreateColumn" class="nav-link">@Localizer["Create Column"]</a>
+                    <a asp-controller="Column" asp-action="AlterColumn" class="nav-link">@Localizer["Alter Column"]</a>
+                    <a asp-controller="Column" asp-action="DropColumn" class="nav-link">@Localizer["Drop Column"]</a>
+                    <a asp-controller="Column" asp-action="RenameColumn" class="nav-link">@Localizer["Rename Column"]</a>
+                </div>
+            </li>
+
+            <!-- View & Procedure Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#viewProcedureManagement">@Localizer["ViewProcedureManagement"]</a>
+                <div id="viewProcedureManagement" class="collapse">
+                    <a asp-controller="View" asp-action="ManageView" class="nav-link">@Localizer["Manage View"]</a>
+                    <a asp-controller="View" asp-action="ManageProcedure" class="nav-link">@Localizer["Stored Procedure"]</a>
+
+                    <a asp-controller="View" asp-action="DropView" class="nav-link">@Localizer["DropView"]</a>
+                    <a asp-controller="View" asp-action="DropProcedure" class="nav-link">@Localizer["DropProcedure"]</a>
+                </div>
+            </li>
+
+
+            <!-- Schema & Function Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#schemaFunctionManagement">@Localizer["SchemaFunctionManagement"]</a>
+                <div id="schemaFunctionManagement" class="collapse">
+                    <a asp-controller="Schema" asp-action="CreateSchema" class="nav-link">@Localizer["CreateSchema"]</a>
+                    <a asp-controller="Schema" asp-action="DropSchema" class="nav-link">@Localizer["DropSchema"]</a>
+
+                    <a asp-controller="Function" asp-action="CreateFunction" class="nav-link">@Localizer["CreateFunction"]</a>
+                    <a asp-controller="Function" asp-action="DropFunction" class="nav-link">@Localizer["DropFunction"]</a>
+
+                </div>
+            </li>
+
+            <!-- Sequence & Index Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#sequenceIndexManagement">@Localizer["SequenceIndexManagement"]</a>
+                <div id="sequenceIndexManagement" class="collapse">
+                  
+                    <a asp-controller="Sequence" asp-action="CreateSequence" class="nav-link">@Localizer["CreateSequence"]</a>
+                    <a asp-controller="Sequence" asp-action="DropSequence" class="nav-link">@Localizer["DropSequence"]</a>
+
+
+
+                    <a asp-controller="Index" asp-action="ManageIndex" class="nav-link">@Localizer["Manage Index"]</a>
+                </div>
+            </li>
+
+
+            <!-- Partition & FileGroup Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#partitionFileGroupManagement">@Localizer["PartitionFileGroupManagement"]</a>
+                <div id="partitionFileGroupManagement" class="collapse">
+                    @* <a asp-controller="Partition" asp-action="CreatePartition" class="nav-link">@Localizer["Filegroups Partitions"]</a> *@
+                    <a asp-controller="FileGroup" asp-action="ManageFileGroup" class="nav-link">@Localizer["Manage File Group"]</a>
+                </div>
+            </li>
+
+
+            <!-- Security Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#securityManagement">@Localizer["SecurityManagement"]</a>
+                <div id="securityManagement" class="collapse">
+                    <a asp-controller="Security" asp-action="CreateLogin" class="nav-link">@Localizer["Login User"]</a>
+                    <a asp-controller="Security" asp-action="DeleteLogin" class="nav-link">@Localizer["Delete Login"]</a>
+                    <a asp-controller="Security" asp-action="ChangeLoginPassword" class="nav-link">@Localizer["Change Login Password"]</a>
+                    <a asp-controller="Security" asp-action="CreateUser" class="nav-link">@Localizer["Create User"]</a>
+                    <a asp-controller="Security" asp-action="DeleteUser" class="nav-link">@Localizer["Delete User"]</a>
+                    <a asp-controller="Security" asp-action="AddUserToRole" class="nav-link">@Localizer["Add User to Role"]</a>
+                    <a asp-controller="Security" asp-action="GrantDatabasePermission" class="nav-link">@Localizer["Grant Database Permission"]</a>
+                    <a asp-controller="Security" asp-action="GrantObjectPermission" class="nav-link">@Localizer["Grant Object Permission"]</a>
+                    <a asp-controller="Security" asp-action="AddLoginToServerRole" class="nav-link">@Localizer["Add Login to Server Role"]</a>
+                    <a asp-controller="Security" asp-action="RevokeObjectPermission" class="nav-link">@Localizer["Revoke Object Permission"]</a>
+                </div>
+            </li>
+
+            <!-- Database & TempDB Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#dbTempDbManagement">@Localizer["DatabaseTempDbManagement"]</a>
+                <div id="dbTempDbManagement" class="collapse">
+                    <a asp-controller="Database" asp-action="Create" class="nav-link">@Localizer["Create Database"]</a>
+                    <a asp-controller="TempDb" asp-action="CreateTempDb" class="nav-link">@Localizer["TempDB Standard"]</a>
+                </div>
+            </li>
+
+            <!-- Extract Data -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#extractData">@Localizer["ExtractData"]</a>
+                <div id="extractData" class="collapse">
+                    <a asp-controller="Extract" asp-action="Tables" class="nav-link">@Localizer["Tables"]</a>
+                    <a asp-controller="Extract" asp-action="Views" class="nav-link">@Localizer["Views"]</a>
+                    <a asp-controller="Extract" asp-action="Indexes" class="nav-link">@Localizer["Indexes"]</a>
+                    <a asp-controller="Extract" asp-action="Columns" class="nav-link">@Localizer["Columns"]</a>
+                    <a asp-controller="Extract" asp-action="FileGroups" class="nav-link">@Localizer["File Groups"]</a>
+                    <a asp-controller="Extract" asp-action="Schemas" class="nav-link">@Localizer["Schemas"]</a>
+                    <a asp-controller="Extract" asp-action="ForeignKeys" class="nav-link">@Localizer["Foreign Keys"]</a>
+                    <a asp-controller="Extract" asp-action="PrimaryKeys" class="nav-link">@Localizer["Primary Keys"]</a>
+                    <a asp-controller="Extract" asp-action="Procedures" class="nav-link">@Localizer["Procedures"]</a>
+                    <a asp-controller="Extract" asp-action="DatabaseInfo" class="nav-link">@Localizer["Database Info"]</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        
+        @Html.Partial("_Error.cshtml")
+        @RenderBody()
+    </div>
+
+    <footer style="background-color:#007bff;color:white;padding:30px 20px;text-align:center;font-family:Arial,sans-serif;border-top-left-radius:20px;border-top-right-radius:20px;">
+
+        <div style="font-size:14px;">
+            <a href="mailto:abolfazalsadeqi@gmail.com" style="color:white;text-decoration:none;margin:0 10px;">Contact: Heeman Sadeghi</a> |
+            <a href="https://github.com/abolfazlSadeqi/SqlGenerateStandarad" target="_blank" style="color:white;text-decoration:none;margin:0 10px;">Source on GitHub</a> |
+            <a href="https://github.com/abolfazlSadeqi/SqlGenerateStandarad" target="_blank" style="color:white;text-decoration:none;margin:0 10px;">Contribute</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // تست باز شدن/بسته شدن منوها
+            $('[data-toggle="collapse"]').click(function () {
+                var target = $(this).data('target');
+                $(target).collapse('toggle');
+            });
+
+
+                    // Before form submission, add hidden inputs for unchecked checkboxes
+                document.querySelector("form").addEventListener("submit", function (event) {
+                    // Get all checkbox inputs
+                    document.querySelectorAll("input[type='checkbox']").forEach(function (chk) {
+                        // If the checkbox is unchecked, add a hidden input with value false
+                        if (!chk.checked) {
+                            var hidden = document.createElement("input");
+                            hidden.type = "hidden";
+                            hidden.name = chk.name;
+                            hidden.value = "false";
+                            document.querySelector("form").appendChild(hidden);
+                        }
+                    });
+                });
+
+        });
+
+        function copyScript() {
+            const txt = document.getElementById('scriptArea').innerText;
+
+            // کپی کردن متن به کلیپ‌بورد
+            navigator.clipboard.writeText(txt).then(function() {
+                // تغییر متن دکمه و نشان دادن پیام "کپی شد"
+                var copyButton = document.getElementById('copyButton');
+                copyButton.textContent = 'Copied!';
+                copyButton.classList.remove('btn-outline-secondary');
+                copyButton.classList.add('btn-success');
+
+                // برگرداندن دکمه به حالت اولیه بعد از 2 ثانیه
+                setTimeout(function() {
+                    copyButton.textContent = 'Copy';
+                    copyButton.classList.remove('btn-success');
+                    copyButton.classList.add('btn-outline-secondary');
+                }, 2000);
+            }, function() {
+                alert('Copy failed.');
+            });
+        }
+
+
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
