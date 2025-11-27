@@ -46,6 +46,10 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-dark fixed-top">
+        <button class="btn btn-outline-light d-lg-none" id="menuToggle">
+            <i class="bi bi-list" style="font-size: 26px"></i>
+        </button>
+
         <div class="container-fluid">
             <span class="navbar-brand fw-bold">
                 <i class="bi bi-database-gear"></i>
@@ -63,7 +67,7 @@
     </nav>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebarMenu">
 
         <div class="group-title">
             <i class="bi bi-tools"></i>
@@ -261,6 +265,9 @@
             });
         }
 
+                document.getElementById("menuToggle").addEventListener("click", function () {
+            document.getElementById("sidebarMenu").classList.toggle("open");
+        });
 
     </script>
     @RenderSection("Scripts", required: false)

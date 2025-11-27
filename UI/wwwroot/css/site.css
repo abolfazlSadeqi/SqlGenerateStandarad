@@ -1,85 +1,86 @@
-﻿/* General Body Style */
+﻿/* GENERAL */
 html {
-  font-size: 14px;
-  position: relative;
-  min-height: 100%;
+    font-size: 14px;
 }
 
 body {
-  background-color: #f4f5f7;
-  margin-bottom: 60px; /* Ensure enough space for footer */
+    background: #f4f5f7;
+    margin: 0;
 }
 
-/* Flexbox Layout for Body */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensures the body takes at least full screen height */
-}
-
-/* Sidebar Style */
+/* SIDEBAR DESKTOP */
 .sidebar {
-  width: 250px;
-  position: fixed;
-  top: 60px;
-  bottom: 0;
-  background-color: #222;
-  overflow-y: auto;
+    width: 250px;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    background: #222;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+html[dir="rtl"] .sidebar {
+    right: 0;
+    left: auto;
 }
 
 .sidebar a {
-  display: block;
-  padding: 10px 20px;
-  color: #c9c9d9;
-  font-size: 14px;
-  text-decoration: none;
-  transition: 0.2s;
+    display: block;
+    padding: 10px 20px;
+    color: #cfcfe8;
+    font-size: 14px;
+    text-decoration: none;
 }
 
-.sidebar a:hover {
-  background: #2a2a3c;
-  color: white;
-}
+    .sidebar a:hover {
+        background: #2b2b3b;
+        color: white;
+    }
 
-/* Content Section */
+/* CONTENT */
 .content {
-  margin-top: 30px;
-  margin-left: 250px;
-  padding: 50px;
-  flex-grow: 1; /* Content takes remaining space */
+    margin-top: 70px;
+    margin-left: 250px;
+    padding: 25px;
 }
 
 html[dir="rtl"] .content {
-  margin-right: 250px;
-  margin-left: 0;
+    margin-right: 250px;
+    margin-left: 0;
 }
 
-/* Footer Style */
+/* FOOTER */
 footer {
-  background-color: #007bff;
-  color: white;
-  padding: 30px 20px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  margin-top: auto; /* Pushes footer to the bottom */
+    background: #007bff;
+    padding: 25px;
+    color: white;
+    text-align: center;
+    margin-top: 40px;
 }
 
-footer a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  transition: 0.3s;
-}
+/* 📱 MOBILE RESPONSIVE */
+@media (max-width: 991px) {
 
-footer a:hover {
-  text-decoration: underline;
-}
+    /* hide sidebar by default */
+    .sidebar {
+        display: none;
+        width: 250px;
+        position: fixed;
+        z-index: 9999;
+        height: 100vh;
+        padding-top: 70px;
+    }
 
-/* Responsive Design for Font Size */
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+        /* offcanvas visible */
+        .sidebar.open {
+            display: block;
+        }
+
+    /* content full width */
+    .content {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 15px;
+    }
 }
