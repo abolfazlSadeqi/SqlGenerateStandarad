@@ -8,81 +8,81 @@ using Serilog;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace UI.Middleware
-{
-    public class RequestLoggingMiddleware
-    {
-        private readonly RequestDelegate _next;
-        private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
+namespace UI.Middleware;
 
-        public RequestLoggingMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
+public class RequestLoggingMiddleware
+{
+    private readonly RequestDelegate _next;
+    private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
+
+    public RequestLoggingMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
+    {
+        _next = next;
+        _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        var sw = Stopwatch.StartNew();
+
+        // --- تعیین CorrelationId ---
+        var correlationId = context.TraceIdentifier;
+        if (!context.Request.Headers.ContainsKey("X-Correlation-ID"))
         {
-            _next = next;
-            _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
+            context.Request.Headers["X-Correlation-ID"] = correlationId;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        // --- تعیین IP ---
+        var ip = context.Connection.RemoteIpAddress?.ToString();
+
+        // --- تعیین User ---
+        var user = context.User?.Identity?.IsAuthenticated == true
+            ? context.User.Identity.Name
+            : "Anonymous";
+
+        // --- استخراج اکشن/کنترلر ---
+        var endpoint = context.GetEndpoint();
+        var actionDescriptor = endpoint?.Metadata.GetMetadata<ControllerActionDescriptor>();
+
+        // اگر درخواست مربوط به MVC Action نباشد → لاگ نزن
+        if (actionDescriptor == null)
         {
-            var sw = Stopwatch.StartNew();
+            await _next(context);
+            return;
+        }
 
-            var method = context.Request.Method;
-            var path = context.Request.Path;
+        var method = context.Request.Method;
+        var path = context.Request.Path;
+        var controller = actionDescriptor.ControllerName;
+        var action = actionDescriptor.ActionName;
 
-            // در اینجا اطلاعات کنترلر و اکشن را پیدا می‌کنیم
-            string controller = null;
-            string action = null;
+        // --- لاگ شروع ---
+        Log.Information(
+            "START {Method} {Path} | Ctrl:{Controller} | Act:{Action} | User:{User} | IP:{IP} | CorrelationId:{CorrelationId}",
+            method, path, controller, action, user, ip, correlationId);
 
-            var routeData = context.GetRouteData();
-            if (routeData?.Values.ContainsKey("controller") == true)
-            {
-                controller = routeData.Values["controller"]?.ToString();
-            }
-            if (routeData?.Values.ContainsKey("action") == true)
-            {
-                action = routeData.Values["action"]?.ToString();
-            }
+        try
+        {
+            await _next(context);
 
-            if (string.IsNullOrEmpty(controller) || string.IsNullOrEmpty(action))
-            {
-                // اگر اطلاعات کنترلر یا اکشن خالی بود، از ActionDescriptor استفاده می‌کنیم
-                var endpoint = context.GetEndpoint();
-                if (endpoint != null)
-                {
-                    var actionDescriptor = endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();
-                    if (actionDescriptor != null)
-                    {
-                        controller = actionDescriptor.ControllerName;
-                        action = actionDescriptor.ActionName;
-                    }
-                }
-            }
+            sw.Stop();
 
-            // لاگ شروع درخواست
+            // --- لاگ پایان ---
             Log.Information(
-                "Step:START Request {Method} {Path} | Controller: {Controller} | Action: {Action} | Time: {Time}",
-                method, path, controller, action, DateTime.UtcNow);
+                "END {Method} {Path} | Ctrl:{Controller} | Act:{Action} | User:{User} | IP:{IP} | CorrelationId:{CorrelationId} | {Duration}ms",
+                method, path, controller, action, user, ip, correlationId, sw.ElapsedMilliseconds);
+        }
+        catch (Exception ex)
+        {
+            sw.Stop();
 
-            try
-            {
-                await _next(context); // اجرای درخواست
+            // --- لاگ خطا ---
+            Log.Error(ex,
+                "ERROR {Method} {Path} | Ctrl:{Controller} | Act:{Action} | User:{User} | IP:{IP} | CorrelationId:{CorrelationId} | {Duration}ms",
+                method, path, controller, action, user, ip, correlationId, sw.ElapsedMilliseconds);
 
-                sw.Stop(); // زمان‌سنجی بعد از پایان درخواست
-                // لاگ پایان درخواست
-                Log.Information(
-                    "Step:END Request {Method} {Path} | Controller: {Controller} | Action: {Action} | Duration: {Duration}ms",
-                    method, path, controller, action, sw.ElapsedMilliseconds);
-            }
-            catch (Exception ex)
-            {
-                sw.Stop(); // زمان‌سنجی در صورت بروز خطا
-                // لاگ خطا
-                Log.Error(
-                    ex,
-                    "Step:ERROR in Request {Method} {Path} | Controller: {Controller} | Action: {Action} | Duration: {Duration}ms",
-                    method, path, controller, action, sw.ElapsedMilliseconds);
-
-                throw; // باز انداختن خطا
-            }
+            throw;
         }
     }
+
 }
